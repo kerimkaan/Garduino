@@ -1,5 +1,5 @@
 /*
- * Garduino | 0.0.1
+ * Garduino | 0.1
  * Plant Monitoring & Management System on Ardunio.
  * 
  * Water level detecting: Sensor(A0=Analog), led1(7), integers(watersensor,WaterSensorValue)
@@ -24,18 +24,16 @@ int watersensor = 0; // Water sensor integer A0
 void setup() {
  Serial.begin(9600);
  motor.attach(9);
- Serial.println("Garduino 0.0.1 - Plant Monitoring & Management System on Ardunio.");
+ Serial.println("Garduino 0.1 - Plant Monitoring & Management System");
  dht.begin();
   pinMode(led1, OUTPUT);
 }
 
 void loop() {
  int WaterSensorValue = analogRead(watersensor);
- float h = dht.readHumidity();
-  // Read temperature as Celsius (the default)
-  float t = dht.readTemperature();
-  // Compute heat index in Celsius (isFahreheit = false)
-  float hic = dht.computeHeatIndex(t, h, false);
+  float h = dht.readHumidity(); // Read humidity (%) - Nem oranı
+  float t = dht.readTemperature(); // Read temperature as Celsius - Celsius cinsinden sıcaklık değeri
+  float hic = dht.computeHeatIndex(t, h, false); // Compute heat index in Celsius - Isı indeksi (Hissedilen sıcaklık)
   Serial.println("-------------------------------------------------------------------");
   Serial.print("Ortam Nemi / Env. Humidity: ");
   Serial.print(h);
@@ -48,7 +46,7 @@ void loop() {
   Serial.println(" *C ");
   
  
- if (WaterSensorValue >= 800){
+ if (WaterSensorValue >= 500){
   Serial.println("Toprak su seviyesi / Soil Water level: TOO HIGH");
   digitalWrite(led3,HIGH);
   delay(250);
@@ -58,14 +56,14 @@ void loop() {
   delay(250);
   digitalWrite(led3,LOW);
  }
- else if (WaterSensorValue >= 600 && WaterSensorValue < 800)
+ else if (WaterSensorValue >= 400 && WaterSensorValue < 500)
  {
   Serial.println("Toprak su seviyesi / Soil Water level: HIGH");
   digitalWrite(led2,HIGH);
-  delay(250);
+  delay(500);
   digitalWrite(led2,LOW);
  }
- else if (WaterSensorValue >= 250 && WaterSensorValue < 600)
+ else if (WaterSensorValue >= 250 && WaterSensorValue < 400)
  {
   Serial.println("Toprak su seviyesi / Soil Water level: NORMAL");
   digitalWrite(led1,LOW);
@@ -87,5 +85,5 @@ void loop() {
   digitalWrite(led1,LOW);
  }
  Serial.println("-------------------------------------------------------------------");
-delay(2000);
+delay(1500);
 }
