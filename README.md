@@ -1,5 +1,5 @@
 # Garduino
-Plant Monitoring &amp; Management System on Arduino.
+Plant Monitoring &amp; Management System on Arduino
 
 ## Introduction
 
@@ -23,13 +23,13 @@ Under construction.
 * 1 x Arduino UNO
 * 1 x DHT11 Temp. & Hum. Sensor
 * 1 x MH Water Level Sensor
-* 1 x Tower Pro S9 Servo Motor
+* 1 x Servo Motor (Tower Pro Micro Servo SG90)
 * 1 x Blue LED
 * 1 x Yellow LED
 * 1 x Red LED
 * 4 x 10k Ohm Resistor
 * 1 x IR receiver
-* 1 x IR transreceiver
+* 1 x IR trasmitter
 * 1 x ESP8266 Wi-Fi Module
 
 …
