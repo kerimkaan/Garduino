@@ -28,9 +28,14 @@ Under construction.
 * 1 x Yellow LED
 * 1 x Red LED
 * 4 x 10k Ohm Resistor
+* 1 x IR receiver
+* 1 x IR transreceiver
+* 1 x ESP8266 Wi-Fi Module
+
 …
 
 
-- NOT READY FOR USE
 
-v0.1
+*NOT READY FOR USE*
+
+Version: 0.1
