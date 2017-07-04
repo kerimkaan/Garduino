@@ -83,44 +83,55 @@ void loop() {
   Serial.print(distance);
   Serial.println(" cm");
 
- if (WaterSensorValue >= 500){
-  Serial.println("Toprak su seviyesi / Soil Water level: TOO HIGH");
-  digitalWrite(led3,HIGH);
-  delay(250);
-  digitalWrite(led3,LOW);
-  delay(100);
-  digitalWrite(led3,HIGH);
-  delay(250);
-  digitalWrite(led3,LOW);
- }
- else if (WaterSensorValue >= 400 && WaterSensorValue < 500)
- {
-  Serial.println("Toprak su seviyesi / Soil Water level: HIGH");
-  digitalWrite(led2,HIGH);
-  delay(500);
-  digitalWrite(led2,LOW);
- }
- else if (WaterSensorValue >= 250 && WaterSensorValue < 400)
- {
-  Serial.println("Toprak su seviyesi / Soil Water level: NORMAL");
-  digitalWrite(led1,LOW);
-  digitalWrite(led2,LOW);
-  digitalWrite(led3,LOW);
- }
- else if (WaterSensorValue >= 0 && WaterSensorValue < 250)
- {
-  digitalWrite(led1,HIGH);
-  Serial.println("Toprak su seviyesi / Soil Water level: LOW");
-
-  for (pos = 0; pos <= 90; pos += 5) {
-    // in steps of 1 degree
-
-    motor.write(pos);
-       delay(150);
-
+  if (distance < 10){
+    Serial.println("Su seviyesi çok düşük / Water level is too low")
+    digitalWrite(led1, HIGH);
+    digitalWrite(led2, HIGH);
+    digitalWrite(led3, HIGH);
+    Serial.println("-------------------------------------------------------------------");
   }
-  digitalWrite(led1,LOW);
- }
- Serial.println("-------------------------------------------------------------------");
+  else{
+    if (WaterSensorValue >= 500){
+     Serial.println("Toprak nem seviyesi / Soil humidity level: TOO HIGH");
+     digitalWrite(led3,HIGH);
+     delay(250);
+     digitalWrite(led3,LOW);
+     delay(100);
+     digitalWrite(led3,HIGH);
+     delay(250);
+     digitalWrite(led3,LOW);
+    }
+    else if (WaterSensorValue >= 400 && WaterSensorValue < 500)
+    {
+     Serial.println("Toprak nem seviyesi / Soil humidity level: HIGH");
+     digitalWrite(led2,HIGH);
+     delay(500);
+     digitalWrite(led2,LOW);
+    }
+    else if (WaterSensorValue >= 250 && WaterSensorValue < 400)
+    {
+     Serial.println("Toprak nem seviyesi / Soil humidity level: NORMAL");
+     digitalWrite(led1,LOW);
+     digitalWrite(led2,LOW);
+     digitalWrite(led3,LOW);
+    }
+    else if (WaterSensorValue >= 0 && WaterSensorValue < 250)
+    {
+     digitalWrite(led1,HIGH);
+     Serial.println("Toprak nem seviyesi / Soil humidity level: LOW");
+
+     for (pos = 0; pos <= 90; pos += 5) {
+       // in steps of 5 degrees
+
+       motor.write(pos);
+          delay(150);
+
+     }
+     digitalWrite(led1,LOW);
+    }
+    Serial.println("-------------------------------------------------------------------");
+  }
+
+
 delay(1000);
 }
