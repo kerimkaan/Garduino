@@ -1,22 +1,23 @@
 /*
  * Garduino | 0.1
  * Plant Monitoring & Management System on Arduino
- * 
+ *
  * Water level detecting: Sensor(A0), led1(7), integers(watersensor,WaterSensorValue)
  * DHT temp & humidity detecting: Sensor(Digital 2), integers(h,t,hic)
  * Servo motor controlling: Motor(Digital 9), integers(motor,pos)
  * IR Controlling: Receiver(Digital 13), integers(RECV_PIN)
  * Distance detecting: Sensor(Digital 3 & 2), VCC to Arduino 5v GND to Arduino GND
- * 
+ *
  * Created by Kerim Kaan (kerimkaan.com)
- * 
- * Kullanmadan önce lütfen BENİOKU.md dosyasını okuyunuz.
+ *
+ *
  * Before use please read README.md file.
- * 
+ * Kullanmadan önce lütfen BENİOKU.md dosyasını okuyunuz.
+ *
  * Repository: github.com/kerimkaan/Garduino
  */
 
-// Libraries 
+// Libraries
 #include <DHT.h> // DHT library
 #include <DHT_U.h> // DHT 11 & 22 detecting library
 #include <Servo.h> // Servo library
@@ -25,7 +26,7 @@
 Servo motor;
 int pos = 0;
 
-// DHT Sensor 
+// DHT Sensor
 #define DHTPIN 2 // DHT to Arduino Digital 2 / DHT sensörü 2. pine bağlı
 #define DHTTYPE DHT11
 DHT dht(DHTPIN, DHTTYPE);
@@ -73,7 +74,7 @@ void loop() {
   // Distance detecting & monitoring
   long duration, distance;
   digitalWrite(trigPin, LOW);
-  delayMicroseconds(2); 
+  delayMicroseconds(2);
   digitalWrite(trigPin, HIGH);
   delayMicroseconds(10);
   digitalWrite(trigPin, LOW);
@@ -81,7 +82,7 @@ void loop() {
   distance = (duration/2) / 29.1;
   Serial.print(distance);
   Serial.println(" cm");
- 
+
  if (WaterSensorValue >= 500){
   Serial.println("Toprak su seviyesi / Soil Water level: TOO HIGH");
   digitalWrite(led3,HIGH);
@@ -110,13 +111,13 @@ void loop() {
  {
   digitalWrite(led1,HIGH);
   Serial.println("Toprak su seviyesi / Soil Water level: LOW");
-  
+
   for (pos = 0; pos <= 90; pos += 5) {
     // in steps of 1 degree
-    
-    motor.write(pos);              
+
+    motor.write(pos);
        delay(150);
-       
+
   }
   digitalWrite(led1,LOW);
  }
