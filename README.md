@@ -3,7 +3,7 @@ Plant Monitoring &amp; Management System on Arduino
 
 ## Introduction
 
-Garduino is a design for a plant’s monitoring & watering. The design gives us remote control & cheap management of a plant or a garden. The project uses Arduino on IR (Infra-red) and Wi-Fi (ESP8266).
+Garduino is a design for a plant’s monitoring & watering. The design gives us remote control & cheap management of a plant or a garden. The project uses Arduino on IR (Infra-red, Optional) and Wi-Fi (ESP8266).
 
 ## Wiring
 
@@ -12,6 +12,8 @@ Under construction.
 ### Remote Control
 
 Under construction.
+
+*IF YOU USE IR RECEIVER & TRANSMITTER IN THE PROJECT, INCLUDE "IROptional.txt" TO THE PROJECT*
 
 ### Communication
 
@@ -28,8 +30,8 @@ Under construction.
 * 1 x Yellow LED
 * 1 x Red LED
 * 4 x 10k Ohm Resistor
-* 1 x IR receiver
-* 1 x IR trasmitter
+* 1 x IR receiver (Optional)
+* 1 x IR trasmitter (Optional)
 * 1 x ESP8266 Wi-Fi Module
 
 …
