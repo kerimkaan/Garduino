@@ -1,6 +1,6 @@
 // IF YOU USE IR RECEIVER & TRANSMITTER IN THE PROJECT, INCLUDE THESE CODES TO THE PROJECT
-// PROJENÝZDE IR ALICI VE VERÝCÝ KULLANACAKSANIZ, BU KODLARI PROJENÝZE EKLEYÝN
-// PLEASE CHECK THE REPO "Arduino-IRremote" on Github
+// PROJENÄ°ZDE IR ALICI VE VERÄ°CÄ° KULLANACAKSANIZ, BU KODLARI PROJENÄ°ZE EKLEYÄ°N
+// PLEASE CHECK THE REPO "Arduino-IRremote" on Github (https://github.com/z3t0/Arduino-IRremote)
 
 #include <boarddefs.h> // IR library
 #include <ir_Lego_PF_BitStreamEncoder.h> // IR library
@@ -17,9 +17,9 @@ decode_results results;
 #define BUTON3 0xFF7A85
 
 void setup() {
- 
+
  irrecv.enableIRIn();
- 
+
 }
 
 
@@ -31,7 +31,7 @@ if (irrecv.decode(&results))
       motor.write(60);
       delay(1000);
       motor.write(0);
-      
+
     }
     if (results.value == BUTON2)
     {

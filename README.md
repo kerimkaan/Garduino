@@ -13,7 +13,7 @@ Under construction.
 
 Under construction.
 
-*IF YOU USE IR RECEIVER & TRANSMITTER IN THE PROJECT, INCLUDE "IROptional.txt" TO THE PROJECT*
+*IF YOU USE IR RECEIVER & TRANSMITTER IN THE PROJECT, INCLUDE "IROptional.ino" TO THE PROJECT*
 
 ### Communication
 

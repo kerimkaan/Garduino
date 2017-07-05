@@ -13,7 +13,7 @@ Yapım aşamasında.
 
 Yapım aşamasında.
 
-*IR alıcı-verici devresini kullanmak istiyorsanız IROptional.txt içerisindeki kodu projenize eklemeniz gerekmektedir.*
+*IR alıcı-verici devresini kullanmak istiyorsanız "IROptional.ino" içerisindeki kodu projenize eklemeniz gerekmektedir.*
 
 ### İletişim
 
