@@ -1,3 +1,4 @@
+// Garduino IR Control
 // IF YOU USE IR RECEIVER & TRANSMITTER IN THE PROJECT, INCLUDE THESE CODES TO THE PROJECT
 // PROJENİZDE IR ALICI VE VERİCİ KULLANACAKSANIZ, BU KODLARI PROJENİZE EKLEYİN
 // PLEASE CHECK THE REPO "Arduino-IRremote" on Github (https://github.com/z3t0/Arduino-IRremote)
@@ -22,6 +23,7 @@ void setup() {
 
 }
 
+void loop() {
 
 if (irrecv.decode(&results))
   {
@@ -48,4 +50,5 @@ if (irrecv.decode(&results))
       motor.write(0);
     }
     irrecv.resume();
+  }
   }
