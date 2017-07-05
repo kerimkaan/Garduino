@@ -24,7 +24,8 @@ Yapım aşamasında.
 
 * 1 x Arduino UNO
 * 1 x DHT11 Sıcaklık & Nem Sensörü
-* 1 x MH Su Seviyesi Sensörü
+* 1 x YL-69 Toprak Nemi Sensörü
+* 1 x HC-SR04 Ultrasonik Mesafe Sensörü
 * 1 x Servo Motor (Tower Pro Micro Servo SG90)
 * 1 x Mavi LED
 * 1 x Sarı LED
@@ -40,4 +41,4 @@ Yapım aşamasında.
 
 *KULLANIM İÇİN HAZIR DEĞİLDİR*
 
-Sürüm: 0.1
+Sürüm: 0.2

@@ -1,5 +1,5 @@
 /*
- * Garduino | 0.1
+ * Garduino | 0.2
  * Plant Monitoring & Management System on Arduino
  *
  * DHT temp & humidity detecting: Sensor(Digital 2), integers(h,t,hic)
@@ -46,7 +46,7 @@ int nem; // Humidity integer
 void setup() {
  Serial.begin(9600);
  motor.attach(9); // Servo, Digital 9
- Serial.println("Garduino 0.1 - Plant Monitoring & Management System");
+ Serial.println("Garduino 0.2 - Plant Monitoring & Management System");
  dht.begin();
   pinMode(led1, OUTPUT);
   pinMode(trigPin, OUTPUT);

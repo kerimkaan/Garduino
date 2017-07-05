@@ -24,7 +24,8 @@ Under construction.
 
 * 1 x Arduino UNO
 * 1 x DHT11 Temp. & Hum. Sensor
-* 1 x MH Water Level Sensor
+* 1 x YL-69 Soil Humidity Sensor
+* 1 x HC-SR04 Ultrasonic Sensor
 * 1 x Servo Motor (Tower Pro Micro Servo SG90)
 * 1 x Blue LED
 * 1 x Yellow LED
@@ -40,4 +41,4 @@ Under construction.
 
 *NOT READY FOR USE*
 
-Version: 0.1
+Version: 0.2
