@@ -126,7 +126,7 @@ void loop() {
      digitalWrite(led1,HIGH);
      Serial.println("Toprak nem seviyesi / Soil humidity level: LOW");
      Serial.println("Sulama yapiliyor... / Watering...");
-     for (pos = 0; pos <= 90; pos += 5) {
+     for (pos = 90; pos >= 0; pos -= 10) {
        // in steps of 5 degrees
 
        motor.write(pos);
