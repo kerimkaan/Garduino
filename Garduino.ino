@@ -2,7 +2,7 @@
  * Garduino | 0.2
  * Plant Monitoring & Management System on Arduino
  *
- * DHT temp & humidity detecting: Sensor(Digital 2), integers(h,t,hic)
+ * DHT temp & humidity detecting: Sensor(Digital 2), integers(h,t,hic), Wire a 10k Ohm resistor to VCC
  * Servo motor controlling: Motor(Digital 9), integers(motor,pos)
  * IR Controlling (Optional,Not Include): Receiver(Digital 13), integers(RECV_PIN)
  * Water level (Distance) detecting: Sensor(Digital 3 & 2), VCC to Arduino 5v GND to Arduino GND
