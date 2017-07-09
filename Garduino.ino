@@ -1,9 +1,8 @@
 /*
- * Garduino | 0.2
+ * Garduino | 0.3
  * Plant Monitoring & Management System on Arduino
  *
  * DHT temp & humidity detecting: Sensor(Digital 2), integers(h,t,hic), Wire a 10k Ohm resistor to VCC
- * Servo motor controlling: Motor(Digital 9), integers(motor,pos)
  * IR Controlling (Optional,Not Include): Receiver(Digital 13), integers(RECV_PIN)
  * Water level (Distance) detecting: Sensor(Digital 3 & 2), VCC to Arduino 5v GND to Arduino GND
  * Soil humidity detecting: Sensor(A0), VCC to 5V
@@ -19,10 +18,6 @@
 #include <DHT.h> // DHT library
 #include <DHT_U.h> // DHT 11 & 22 detecting library
 #include <Servo.h> // Servo library
-
-// Servo motor
-Servo motor;
-int pos = 0;
 
 // DHT Sensor
 #define DHTPIN 2 // DHT to Arduino Digital 2 / DHT sensörü 2. pine bağlı
@@ -45,8 +40,7 @@ int nem; // Humidity integer
 
 void setup() {
  Serial.begin(9600);
- motor.attach(9); // Servo, Digital 9
- Serial.println("Garduino 0.2 - Plant Monitoring & Management System");
+ Serial.println("Garduino 0.3 - Plant Monitoring & Management System");
  dht.begin();
   pinMode(led1, OUTPUT);
   pinMode(trigPin, OUTPUT);
@@ -125,14 +119,7 @@ void loop() {
     {
      digitalWrite(led1,HIGH);
      Serial.println("Toprak nem seviyesi / Soil humidity level: LOW");
-     Serial.println("Sulama yapiliyor... / Watering...");
-     for (pos = 90; pos >= 0; pos -= 10) {
-       // in steps of 5 degrees
-
-       motor.write(pos);
-          delay(150);
-
-     }
+     Serial.print("Lutfen sulama yapiniz. / Please watering.");
      digitalWrite(led1,LOW);
     }
     Serial.println("-------------------------------------------------------------------");
