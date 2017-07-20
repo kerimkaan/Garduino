@@ -16,16 +16,16 @@
  */
 
 // Libraries
-#include <DHT.h> // DHT library
-#include <DHT_U.h> // DHT 11 & 22 detecting library
-#include <Servo.h> // Servo library
+#include <DHT.h>    // DHT library
+#include <DHT_U.h>  // DHT 11 & 22 detecting library
+#include <Servo.h>  // Servo library
 // Wi-Fi network identification
-#define ssid "SSID" // Your Wi-Fi SSID
-#define pass "Pass" // Your Wi-Fi password
-#define IP "184.106.153.149"    // thingspeak.com IP address
+#define ssid "SSID"            // Your Wi-Fi SSID
+#define pass "Pass"            // Your Wi-Fi password
+#define IP "184.106.153.149"   // thingspeak.com IP address
 
 // DHT Sensor
-#define DHTPIN 2 // DHT to Arduino Digital 2 / DHT sensörü 2. pine bağlı
+#define DHTPIN 2  // DHT to Arduino Digital 2 / DHT sensörü 2. pine bağlı
 #define DHTTYPE DHT11
 DHT dht(DHTPIN, DHTTYPE);
 
