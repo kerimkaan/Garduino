@@ -1,11 +1,12 @@
 /*
- * Garduino | 0.3
+ * Garduino | 0.4
  * Plant Monitoring & Management System on Arduino
  *
  * DHT temp & humidity detecting: Sensor(Digital 2), integers(h,t,hic), Wire a 10k Ohm resistor to VCC
  * IR Controlling (Optional,Not Include): Receiver(Digital 13), integers(RECV_PIN)
  * Water level (Distance) detecting: Sensor(Digital 3 & 2), VCC to Arduino 5v GND to Arduino GND
- * Soil humidity detecting: Sensor(A0), VCC to 5V
+ * Soil humidity detecting: Sensor(A0), VCC to 3.3V
+ * ESP8266: TX,RX, VCC to 5V, normal using
  *
  *
  * Before use please read README.md file.
@@ -18,6 +19,10 @@
 #include <DHT.h> // DHT library
 #include <DHT_U.h> // DHT 11 & 22 detecting library
 #include <Servo.h> // Servo library
+// Wi-Fi network identification
+#define ssid "SSID" // Your Wi-Fi SSID
+#define pass "Pass" // Your Wi-Fi password
+#define IP "184.106.153.149"    // thingspeak.com IP address
 
 // DHT Sensor
 #define DHTPIN 2 // DHT to Arduino Digital 2 / DHT sensörü 2. pine bağlı
@@ -37,11 +42,23 @@ int led3 = 11;  // LED3(Kırmızı, Red) 11. pine bağlı
 int soilsensor = 0; // Soil humidity sensor integer, Arduino A0
 int nem; // Humidity integer
 
+const int INTERNAL;
+
 
 void setup() {
- Serial.begin(9600);
- Serial.println("Garduino 0.3 - Plant Monitoring & Management System");
+ Serial.begin(115200);
+ Serial.println("Garduino 0.4 - Plant Monitoring & Management System");
  dht.begin();
+
+ // Join the Wi-Fi network with ESP8266 Module
+ Serial.println("AT"); //ESP modülümüz ile bağlantı kurulup kurulmadığını kontrol ediyoruz.
+ delay(3000); //ESP ile iletişim için 3 saniye bekliyoruz.
+ analogReference(INTERNAL);
+ if(Serial.find("OK")){         //esp modülü ile bağlantıyı kurabilmişsek modül "AT" komutuna "OK" komutu ile geri dönüş yapıyor.
+    Serial.println("AT+CWMODE=1"); //esp modülümüzün WiFi modunu STA şekline getiriyoruz. Bu mod ile modülümüz başka ağlara bağlanabilecek.
+    delay(2000);
+    String baglantiKomutu=String("AT+CWJAP=\"")+ssid+"\",\""+pass+"\"";
+   Serial.println(baglantiKomutu);
   pinMode(led1, OUTPUT);
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
@@ -57,10 +74,10 @@ void loop() {
   float t = dht.readTemperature(); // Read temperature as Celsius - Celsius cinsinden sıcaklık değeri
   float hic = dht.computeHeatIndex(t, h, false); // Compute heat index in Celsius - Isı indeksi (Hissedilen sıcaklık)
   Serial.println("-------------------------------------------------------------------");
-  Serial.print("Ortam Nemi / Env. Humidity: ");
+  Serial.print("Ortam Nemi / Ambient Humidity: ");
   Serial.print(h);
   Serial.println(" %\t");
-  Serial.print("Ortam Sicakligi / Env. Temperature: ");
+  Serial.print("Ortam Sicakligi / Ambient Temperature: ");
   Serial.print(t);
   Serial.println(" *C ");
   Serial.print("Isi Indeksi(Hissedilen Sicaklik) / Heat Index: ");
@@ -81,6 +98,12 @@ void loop() {
   Serial.print("Su seviyesi / Water level: ");
   Serial.print(distance);
   Serial.println(" cm");
+
+// Collect data for Thingspeak
+  sicaklik_yolla(t);
+  nem_yolla(h);
+  toprak_yolla(nem);
+  mesafe_yolla(distance);
 
   if (distance < 5){
     Serial.println("Su seviyesi çok düşük / Water level is too low");
@@ -126,5 +149,133 @@ void loop() {
   }
 
 
-delay(1000);
+delay(250);
 }
+
+// Connecting to Thinspeak
+void sicaklik_yolla(float t){
+ Serial.println(String("AT+CIPSTART=\"TCP\",\"") + IP + "\",80");  //thingspeak sunucusuna bağlanmak için bu kodu kullanıyoruz.
+                                                                   //AT+CIPSTART komutu ile sunucuya bağlanmak için sunucudan izin istiyoruz.
+                                                                   //TCP burada yapacağımız bağlantı çeşidini gösteriyor. 80 ise bağlanacağımız portu gösteriyor
+ delay(250);
+  if(Serial.find("Error")){     //sunucuya bağlanamazsak ESP modülü bize "Error" komutu ile dönüyor.
+   Serial.println("AT+CIPSTART Error");
+    return;
+  }
+
+void nem_yolla(float h){
+   Serial.println(String("AT+CIPSTART=\"TCP\",\"") + IP + "\",80");  //thingspeak sunucusuna bağlanmak için bu kodu kullanıyoruz.
+                                                                     //AT+CIPSTART komutu ile sunucuya bağlanmak için sunucudan izin istiyoruz.
+                                                                     //TCP burada yapacağımız bağlantı çeşidini gösteriyor. 80 ise bağlanacağımız portu gösteriyor
+   delay(250);
+    if(Serial.find("Error")){     //sunucuya bağlanamazsak ESP modülü bize "Error" komutu ile dönüyor.
+     Serial.println("AT+CIPSTART Error");
+      return;
+    }
+
+void toprak_yolla(int nem){
+     Serial.println(String("AT+CIPSTART=\"TCP\",\"") + IP + "\",80");  //thingspeak sunucusuna bağlanmak için bu kodu kullanıyoruz.
+                                                                       //AT+CIPSTART komutu ile sunucuya bağlanmak için sunucudan izin istiyoruz.
+                                                                       //TCP burada yapacağımız bağlantı çeşidini gösteriyor. 80 ise bağlanacağımız portu gösteriyor
+     delay(250);
+      if(Serial.find("Error")){     //sunucuya bağlanamazsak ESP modülü bize "Error" komutu ile dönüyor.
+       Serial.println("AT+CIPSTART Error");
+        return;
+      }
+
+void mesafe_yolla(int distance){
+       Serial.println(String("AT+CIPSTART=\"TCP\",\"") + IP + "\",80");  //thingspeak sunucusuna bağlanmak için bu kodu kullanıyoruz.
+                                                                         //AT+CIPSTART komutu ile sunucuya bağlanmak için sunucudan izin istiyoruz.
+                                                                         //TCP burada yapacağımız bağlantı çeşidini gösteriyor. 80 ise bağlanacağımız portu gösteriyor
+       delay(250);
+        if(Serial.find("Error")){     //sunucuya bağlanamazsak ESP modülü bize "Error" komutu ile dönüyor.
+         Serial.println("AT+CIPSTART Error");
+          return;
+        }
+
+
+/*
+*  Send datas to Thinspeak API
+*  yollanacakkomut1 = t = Temperature data
+*  yollanacakkomut2 = h = Ambient humidity data
+*  yollanacakkomut3 = nem = Soil humidity data
+*  yollanacakkomut4 = distance = Distance sensor data
+*
+*/
+String yollanacakkomut1 = "GET /update?key=R0XZLJNI69MSWQ9Z&field1=";   // Burada 64T0OS3R1OEAYUML yazan kısım bizim API Key den aldığımız Key. Siz buraya kendi keyinizi yazacaksınız.
+        yollanacakkomut1 += (float(t));                                      // Burada ise sıcaklığımızı float değişkenine atayarak yollanacakkomut değişkenine ekliyoruz.
+        yollanacakkomut1 += "\r\n\r\n";                                             // ESP modülümüz ile seri iletişim kurarken yazdığımız komutların modüle iletilebilmesi için Enter komutu yani
+         delay(2000);                                                                                // /r/n komutu kullanmamız gerekiyor.
+
+        Serial.print("AT+CIPSEND=");                    //veri yollayacağımız zaman bu komutu kullanıyoruz. Bu komut ile önce kaç tane karakter yollayacağımızı söylememiz gerekiyor.
+        Serial.println(yollanacakkomut1.length()+2);       //yollanacakkomut değişkeninin kaç karakterden oluştuğunu .length() ile bulup yazırıyoruz.
+
+        delay(1000);
+
+        if(Serial.find(">")){                           //eğer sunucu ile iletişim sağlayıp komut uzunluğunu gönderebilmişsek ESP modülü bize ">" işareti ile geri dönüyor.
+                                                        // arduino da ">" işaretini gördüğü anda sıcaklık verisini esp modülü ile thingspeak sunucusuna yolluyor.
+        Serial.print(yollanacakkomut1);
+        Serial.print("\r\n\r\n");
+        }
+        else{
+        Serial.println("AT+CIPCLOSE");
+        }
+        }
+String yollanacakkomut2 = "GET /update?key=R0XZLJNI69MSWQ9Z&field2=";   // Burada 64T0OS3R1OEAYUML yazan kısım bizim API Key den aldığımız Key. Siz buraya kendi keyinizi yazacaksınız.
+                yollanacakkomut2 += (float(h));                                      // Burada ise sıcaklığımızı float değişkenine atayarak yollanacakkomut değişkenine ekliyoruz.
+                yollanacakkomut2 += "\r\n\r\n";                                             // ESP modülümüz ile seri iletişim kurarken yazdığımız komutların modüle iletilebilmesi için Enter komutu yani
+                 delay(2000);                                                                                // /r/n komutu kullanmamız gerekiyor.
+
+                Serial.print("AT+CIPSEND=");                    //veri yollayacağımız zaman bu komutu kullanıyoruz. Bu komut ile önce kaç tane karakter yollayacağımızı söylememiz gerekiyor.
+                Serial.println(yollanacakkomut2.length()+2);       //yollanacakkomut değişkeninin kaç karakterden oluştuğunu .length() ile bulup yazırıyoruz.
+
+                delay(1000);
+
+                if(Serial.find(">")){                           //eğer sunucu ile iletişim sağlayıp komut uzunluğunu gönderebilmişsek ESP modülü bize ">" işareti ile geri dönüyor.
+                                                                // arduino da ">" işaretini gördüğü anda sıcaklık verisini esp modülü ile thingspeak sunucusuna yolluyor.
+                Serial.print(yollanacakkomut2);
+                Serial.print("\r\n\r\n");
+                }
+                else{
+                Serial.println("AT+CIPCLOSE");
+                }
+                }
+String yollanacakkomut3 = "GET /update?key=R0XZLJNI69MSWQ9Z&field3=";   // Burada 64T0OS3R1OEAYUML yazan kısım bizim API Key den aldığımız Key. Siz buraya kendi keyinizi yazacaksınız.
+                        yollanacakkomut3 += (float(nem));                                      // Burada ise sıcaklığımızı float değişkenine atayarak yollanacakkomut değişkenine ekliyoruz.
+                        yollanacakkomut3 += "\r\n\r\n";                                             // ESP modülümüz ile seri iletişim kurarken yazdığımız komutların modüle iletilebilmesi için Enter komutu yani
+                         delay(2000);                                                                                // /r/n komutu kullanmamız gerekiyor.
+
+                        Serial.print("AT+CIPSEND=");                    //veri yollayacağımız zaman bu komutu kullanıyoruz. Bu komut ile önce kaç tane karakter yollayacağımızı söylememiz gerekiyor.
+                        Serial.println(yollanacakkomut3.length()+2);       //yollanacakkomut değişkeninin kaç karakterden oluştuğunu .length() ile bulup yazırıyoruz.
+
+                        delay(1000);
+
+                        if(Serial.find(">")){                           //eğer sunucu ile iletişim sağlayıp komut uzunluğunu gönderebilmişsek ESP modülü bize ">" işareti ile geri dönüyor.
+                                                                        // arduino da ">" işaretini gördüğü anda sıcaklık verisini esp modülü ile thingspeak sunucusuna yolluyor.
+                        Serial.print(yollanacakkomut3);
+                        Serial.print("\r\n\r\n");
+                        }
+                        else{
+                        Serial.println("AT+CIPCLOSE");
+                        }
+                        }
+
+String yollanacakkomut4 = "GET /update?key=R0XZLJNI69MSWQ9Z&field4=";   // Burada 64T0OS3R1OEAYUML yazan kısım bizim API Key den aldığımız Key. Siz buraya kendi keyinizi yazacaksınız.
+                                                yollanacakkomut4 += (float(distance));                                      // Burada ise sıcaklığımızı float değişkenine atayarak yollanacakkomut değişkenine ekliyoruz.
+                                                yollanacakkomut4 += "\r\n\r\n";                                             // ESP modülümüz ile seri iletişim kurarken yazdığımız komutların modüle iletilebilmesi için Enter komutu yani
+                                                 delay(2000);                                                                                // /r/n komutu kullanmamız gerekiyor.
+
+                                                Serial.print("AT+CIPSEND=");                    //veri yollayacağımız zaman bu komutu kullanıyoruz. Bu komut ile önce kaç tane karakter yollayacağımızı söylememiz gerekiyor.
+                                                Serial.println(yollanacakkomut4.length()+2);       //yollanacakkomut değişkeninin kaç karakterden oluştuğunu .length() ile bulup yazırıyoruz.
+
+                                                delay(1000);
+
+                                                if(Serial.find(">")){                           //eğer sunucu ile iletişim sağlayıp komut uzunluğunu gönderebilmişsek ESP modülü bize ">" işareti ile geri dönüyor.
+                                                                                                // arduino da ">" işaretini gördüğü anda sıcaklık verisini esp modülü ile thingspeak sunucusuna yolluyor.
+                                                Serial.print(yollanacakkomut4);
+                                                Serial.print("\r\n\r\n");
+                                                }
+                                                else{
+                                                Serial.println("AT+CIPCLOSE");
+                                                }
+                                                }

@@ -40,4 +40,4 @@ Yapım aşamasında.
 
 *KULLANIM İÇİN HAZIR DEĞİLDİR*
 
-Sürüm: 0.3
+Sürüm: 0.4
