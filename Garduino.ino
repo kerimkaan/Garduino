@@ -147,12 +147,18 @@ void loop() {
     }
     Serial.println("-------------------------------------------------------------------");
   }
-
-
-delay(250);
 }
 
-// Connecting to Thinspeak
+/*
+*  Collect and send datas to Thingspeak API
+*  yollanacakkomut1 = t = Temperature data
+*  yollanacakkomut2 = h = Ambient humidity data
+*  yollanacakkomut3 = nem = Soil humidity data
+*  yollanacakkomut4 = distance = Distance sensor data
+*
+*  Thingspeak "GET /update?key=YOUR_API_KEY&fieldYOUR_FIELD="
+*/
+
 void sicaklik_yolla(float t){
  Serial.println(String("AT+CIPSTART=\"TCP\",\"") + IP + "\",80");  //thingspeak sunucusuna bağlanmak için bu kodu kullanıyoruz.
                                                                    //AT+CIPSTART komutu ile sunucuya bağlanmak için sunucudan izin istiyoruz.
@@ -162,46 +168,6 @@ void sicaklik_yolla(float t){
    Serial.println("AT+CIPSTART Error");
     return;
   }
-
-void nem_yolla(float h){
-   Serial.println(String("AT+CIPSTART=\"TCP\",\"") + IP + "\",80");  //thingspeak sunucusuna bağlanmak için bu kodu kullanıyoruz.
-                                                                     //AT+CIPSTART komutu ile sunucuya bağlanmak için sunucudan izin istiyoruz.
-                                                                     //TCP burada yapacağımız bağlantı çeşidini gösteriyor. 80 ise bağlanacağımız portu gösteriyor
-   delay(250);
-    if(Serial.find("Error")){     //sunucuya bağlanamazsak ESP modülü bize "Error" komutu ile dönüyor.
-     Serial.println("AT+CIPSTART Error");
-      return;
-    }
-
-void toprak_yolla(int nem){
-     Serial.println(String("AT+CIPSTART=\"TCP\",\"") + IP + "\",80");  //thingspeak sunucusuna bağlanmak için bu kodu kullanıyoruz.
-                                                                       //AT+CIPSTART komutu ile sunucuya bağlanmak için sunucudan izin istiyoruz.
-                                                                       //TCP burada yapacağımız bağlantı çeşidini gösteriyor. 80 ise bağlanacağımız portu gösteriyor
-     delay(250);
-      if(Serial.find("Error")){     //sunucuya bağlanamazsak ESP modülü bize "Error" komutu ile dönüyor.
-       Serial.println("AT+CIPSTART Error");
-        return;
-      }
-
-void mesafe_yolla(int distance){
-       Serial.println(String("AT+CIPSTART=\"TCP\",\"") + IP + "\",80");  //thingspeak sunucusuna bağlanmak için bu kodu kullanıyoruz.
-                                                                         //AT+CIPSTART komutu ile sunucuya bağlanmak için sunucudan izin istiyoruz.
-                                                                         //TCP burada yapacağımız bağlantı çeşidini gösteriyor. 80 ise bağlanacağımız portu gösteriyor
-       delay(250);
-        if(Serial.find("Error")){     //sunucuya bağlanamazsak ESP modülü bize "Error" komutu ile dönüyor.
-         Serial.println("AT+CIPSTART Error");
-          return;
-        }
-
-
-/*
-*  Send datas to Thinspeak API
-*  yollanacakkomut1 = t = Temperature data
-*  yollanacakkomut2 = h = Ambient humidity data
-*  yollanacakkomut3 = nem = Soil humidity data
-*  yollanacakkomut4 = distance = Distance sensor data
-*
-*/
 String yollanacakkomut1 = "GET /update?key=R0XZLJNI69MSWQ9Z&field1=";   // Burada 64T0OS3R1OEAYUML yazan kısım bizim API Key den aldığımız Key. Siz buraya kendi keyinizi yazacaksınız.
         yollanacakkomut1 += (float(t));                                      // Burada ise sıcaklığımızı float değişkenine atayarak yollanacakkomut değişkenine ekliyoruz.
         yollanacakkomut1 += "\r\n\r\n";                                             // ESP modülümüz ile seri iletişim kurarken yazdığımız komutların modüle iletilebilmesi için Enter komutu yani
@@ -221,6 +187,16 @@ String yollanacakkomut1 = "GET /update?key=R0XZLJNI69MSWQ9Z&field1=";   // Burad
         Serial.println("AT+CIPCLOSE");
         }
         }
+
+void nem_yolla(float h){
+           Serial.println(String("AT+CIPSTART=\"TCP\",\"") + IP + "\",80");  //thingspeak sunucusuna bağlanmak için bu kodu kullanıyoruz.
+                                                                             //AT+CIPSTART komutu ile sunucuya bağlanmak için sunucudan izin istiyoruz.
+                                                                             //TCP burada yapacağımız bağlantı çeşidini gösteriyor. 80 ise bağlanacağımız portu gösteriyor
+           delay(250);
+            if(Serial.find("Error")){     //sunucuya bağlanamazsak ESP modülü bize "Error" komutu ile dönüyor.
+             Serial.println("AT+CIPSTART Error");
+              return;
+            }
 String yollanacakkomut2 = "GET /update?key=R0XZLJNI69MSWQ9Z&field2=";   // Burada 64T0OS3R1OEAYUML yazan kısım bizim API Key den aldığımız Key. Siz buraya kendi keyinizi yazacaksınız.
                 yollanacakkomut2 += (float(h));                                      // Burada ise sıcaklığımızı float değişkenine atayarak yollanacakkomut değişkenine ekliyoruz.
                 yollanacakkomut2 += "\r\n\r\n";                                             // ESP modülümüz ile seri iletişim kurarken yazdığımız komutların modüle iletilebilmesi için Enter komutu yani
@@ -240,6 +216,16 @@ String yollanacakkomut2 = "GET /update?key=R0XZLJNI69MSWQ9Z&field2=";   // Burad
                 Serial.println("AT+CIPCLOSE");
                 }
                 }
+
+void toprak_yolla(int nem){
+                     Serial.println(String("AT+CIPSTART=\"TCP\",\"") + IP + "\",80");  //thingspeak sunucusuna bağlanmak için bu kodu kullanıyoruz.
+                                                                                       //AT+CIPSTART komutu ile sunucuya bağlanmak için sunucudan izin istiyoruz.
+                                                                                       //TCP burada yapacağımız bağlantı çeşidini gösteriyor. 80 ise bağlanacağımız portu gösteriyor
+                     delay(250);
+                      if(Serial.find("Error")){     //sunucuya bağlanamazsak ESP modülü bize "Error" komutu ile dönüyor.
+                       Serial.println("AT+CIPSTART Error");
+                        return;
+                      }
 String yollanacakkomut3 = "GET /update?key=R0XZLJNI69MSWQ9Z&field3=";   // Burada 64T0OS3R1OEAYUML yazan kısım bizim API Key den aldığımız Key. Siz buraya kendi keyinizi yazacaksınız.
                         yollanacakkomut3 += (float(nem));                                      // Burada ise sıcaklığımızı float değişkenine atayarak yollanacakkomut değişkenine ekliyoruz.
                         yollanacakkomut3 += "\r\n\r\n";                                             // ESP modülümüz ile seri iletişim kurarken yazdığımız komutların modüle iletilebilmesi için Enter komutu yani
@@ -260,6 +246,15 @@ String yollanacakkomut3 = "GET /update?key=R0XZLJNI69MSWQ9Z&field3=";   // Burad
                         }
                         }
 
+void mesafe_yolla(int distance){
+                               Serial.println(String("AT+CIPSTART=\"TCP\",\"") + IP + "\",80");  //thingspeak sunucusuna bağlanmak için bu kodu kullanıyoruz.
+                                                                                                 //AT+CIPSTART komutu ile sunucuya bağlanmak için sunucudan izin istiyoruz.
+                                                                                                 //TCP burada yapacağımız bağlantı çeşidini gösteriyor. 80 ise bağlanacağımız portu gösteriyor
+                               delay(250);
+                                if(Serial.find("Error")){     //sunucuya bağlanamazsak ESP modülü bize "Error" komutu ile dönüyor.
+                                 Serial.println("AT+CIPSTART Error");
+                                  return;
+                                }
 String yollanacakkomut4 = "GET /update?key=R0XZLJNI69MSWQ9Z&field4=";   // Burada 64T0OS3R1OEAYUML yazan kısım bizim API Key den aldığımız Key. Siz buraya kendi keyinizi yazacaksınız.
                                                 yollanacakkomut4 += (float(distance));                                      // Burada ise sıcaklığımızı float değişkenine atayarak yollanacakkomut değişkenine ekliyoruz.
                                                 yollanacakkomut4 += "\r\n\r\n";                                             // ESP modülümüz ile seri iletişim kurarken yazdığımız komutların modüle iletilebilmesi için Enter komutu yani
