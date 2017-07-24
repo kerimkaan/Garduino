@@ -59,7 +59,10 @@ void setup() {
     delay(2000);
     String baglantiKomutu=String("AT+CWJAP=\"")+ssid+"\",\""+pass+"\"";
    Serial.println(baglantiKomutu);
+   // LEDs & sensor
   pinMode(led1, OUTPUT);
+  pinMode(led2, OUTPUT);
+  pinMode(led3, OUTPUT);
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
 }
@@ -98,12 +101,6 @@ void loop() {
   Serial.print("Su seviyesi / Water level: ");
   Serial.print(distance);
   Serial.println(" cm");
-
-// Collect data for Thingspeak
-  sicaklik_yolla(t);
-  nem_yolla(h);
-  toprak_yolla(nem);
-  mesafe_yolla(distance);
 
   if (distance < 5){
     Serial.println("Su seviyesi çok düşük / Water level is too low");
@@ -147,6 +144,11 @@ void loop() {
     }
     Serial.println("-------------------------------------------------------------------");
   }
+  // Functions of collect & send data to Thingspeak
+    sicaklik_yolla(t);
+    nem_yolla(h);
+    toprak_yolla(nem);
+    mesafe_yolla(distance);
 }
 
 /*
@@ -168,7 +170,7 @@ void sicaklik_yolla(float t){
    Serial.println("AT+CIPSTART Error");
     return;
   }
-String yollanacakkomut1 = "GET /update?key=R0XZLJNI69MSWQ9Z&field1=";   // Thingspeak API Integration 
+String yollanacakkomut1 = "GET /update?key=R0XZLJNI69MSWQ9Z&field1=";   // Thingspeak API Integration
         yollanacakkomut1 += (float(t));                                      // Burada ise sıcaklığımızı float değişkenine atayarak yollanacakkomut değişkenine ekliyoruz.
         yollanacakkomut1 += "\r\n\r\n";                                             // ESP modülümüz ile seri iletişim kurarken yazdığımız komutların modüle iletilebilmesi için Enter komutu yani
          delay(2000);                                                                                // /r/n komutu kullanmamız gerekiyor.
