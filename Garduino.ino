@@ -5,8 +5,8 @@
  * DHT temp & humidity detecting: Sensor(Digital 2), integers(h,t,hic), Wire a 10k Ohm resistor to VCC
  * IR Controlling (Optional,Not Include): Receiver(Digital 13), integers(RECV_PIN)
  * Water level (Distance) detecting: Sensor(Digital 3 & 2), VCC to Arduino 5v GND to Arduino GND
- * Soil humidity detecting: Sensor(A0), VCC to 3.3V
- * ESP8266: TX,RX, VCC to 5V, normal using
+ * Soil humidity detecting: Sensor(A0), VCC to 5V
+ * ESP8266: TX,RX, VCC to 3.3V, normal using & Thingspeak API integration
  *
  *
  * Before use please read README.md file.
@@ -150,13 +150,13 @@ void loop() {
 }
 
 /*
-*  Collect and send datas to Thingspeak API
-*  yollanacakkomut1 = t = Temperature data
-*  yollanacakkomut2 = h = Ambient humidity data
-*  yollanacakkomut3 = nem = Soil humidity data
-*  yollanacakkomut4 = distance = Distance sensor data
+*  Collect and send data to Thingspeak API
+*  sicaklik_yolla = yollanacakkomut1 = t = Temperature data
+*  nem_yolla = yollanacakkomut2 = h = Ambient humidity data
+*  toprak_yolla = yollanacakkomut3 = nem = Soil humidity data
+*  mesafe_yolla = nacakkomut4 = distance = Distance sensor data
 *
-*  Thingspeak "GET /update?key=YOUR_API_KEY&fieldYOUR_FIELD="
+*  Thingspeak API: "GET /update?key=YOUR_API_KEY&fieldYOUR_FIELD="
 */
 
 void sicaklik_yolla(float t){
@@ -168,7 +168,7 @@ void sicaklik_yolla(float t){
    Serial.println("AT+CIPSTART Error");
     return;
   }
-String yollanacakkomut1 = "GET /update?key=R0XZLJNI69MSWQ9Z&field1=";   // Burada 64T0OS3R1OEAYUML yazan kısım bizim API Key den aldığımız Key. Siz buraya kendi keyinizi yazacaksınız.
+String yollanacakkomut1 = "GET /update?key=R0XZLJNI69MSWQ9Z&field1=";   // Thingspeak API Integration 
         yollanacakkomut1 += (float(t));                                      // Burada ise sıcaklığımızı float değişkenine atayarak yollanacakkomut değişkenine ekliyoruz.
         yollanacakkomut1 += "\r\n\r\n";                                             // ESP modülümüz ile seri iletişim kurarken yazdığımız komutların modüle iletilebilmesi için Enter komutu yani
          delay(2000);                                                                                // /r/n komutu kullanmamız gerekiyor.
@@ -197,7 +197,7 @@ void nem_yolla(float h){
              Serial.println("AT+CIPSTART Error");
               return;
             }
-String yollanacakkomut2 = "GET /update?key=R0XZLJNI69MSWQ9Z&field2=";   // Burada 64T0OS3R1OEAYUML yazan kısım bizim API Key den aldığımız Key. Siz buraya kendi keyinizi yazacaksınız.
+String yollanacakkomut2 = "GET /update?key=R0XZLJNI69MSWQ9Z&field2=";   // Thingspeak API Integration
                 yollanacakkomut2 += (float(h));                                      // Burada ise sıcaklığımızı float değişkenine atayarak yollanacakkomut değişkenine ekliyoruz.
                 yollanacakkomut2 += "\r\n\r\n";                                             // ESP modülümüz ile seri iletişim kurarken yazdığımız komutların modüle iletilebilmesi için Enter komutu yani
                  delay(2000);                                                                                // /r/n komutu kullanmamız gerekiyor.
@@ -226,7 +226,7 @@ void toprak_yolla(int nem){
                        Serial.println("AT+CIPSTART Error");
                         return;
                       }
-String yollanacakkomut3 = "GET /update?key=R0XZLJNI69MSWQ9Z&field3=";   // Burada 64T0OS3R1OEAYUML yazan kısım bizim API Key den aldığımız Key. Siz buraya kendi keyinizi yazacaksınız.
+String yollanacakkomut3 = "GET /update?key=R0XZLJNI69MSWQ9Z&field3=";   // Thingspeak API Integration
                         yollanacakkomut3 += (float(nem));                                      // Burada ise sıcaklığımızı float değişkenine atayarak yollanacakkomut değişkenine ekliyoruz.
                         yollanacakkomut3 += "\r\n\r\n";                                             // ESP modülümüz ile seri iletişim kurarken yazdığımız komutların modüle iletilebilmesi için Enter komutu yani
                          delay(2000);                                                                                // /r/n komutu kullanmamız gerekiyor.
@@ -255,7 +255,7 @@ void mesafe_yolla(int distance){
                                  Serial.println("AT+CIPSTART Error");
                                   return;
                                 }
-String yollanacakkomut4 = "GET /update?key=R0XZLJNI69MSWQ9Z&field4=";   // Burada 64T0OS3R1OEAYUML yazan kısım bizim API Key den aldığımız Key. Siz buraya kendi keyinizi yazacaksınız.
+String yollanacakkomut4 = "GET /update?key=R0XZLJNI69MSWQ9Z&field4=";   // Thingspeak API Integration
                                                 yollanacakkomut4 += (float(distance));                                      // Burada ise sıcaklığımızı float değişkenine atayarak yollanacakkomut değişkenine ekliyoruz.
                                                 yollanacakkomut4 += "\r\n\r\n";                                             // ESP modülümüz ile seri iletişim kurarken yazdığımız komutların modüle iletilebilmesi için Enter komutu yani
                                                  delay(2000);                                                                                // /r/n komutu kullanmamız gerekiyor.
