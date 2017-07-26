@@ -2,6 +2,7 @@
 // IF YOU USE IR RECEIVER & TRANSMITTER IN THE PROJECT, INCLUDE THESE CODES TO THE PROJECT
 // PROJENİZDE IR ALICI VE VERİCİ KULLANACAKSANIZ, BU KODLARI PROJENİZE EKLEYİN
 // PLEASE CHECK THE REPO "Arduino-IRremote" on Github (https://github.com/z3t0/Arduino-IRremote)
+// LÜTFEN GITHUB'TA "Arduino-IRremote" REPOSUNU KONTROL EDİNİZ (https://github.com/z3t0/Arduino-IRremote)
 
 #include <boarddefs.h> // IR library
 #include <ir_Lego_PF_BitStreamEncoder.h> // IR library

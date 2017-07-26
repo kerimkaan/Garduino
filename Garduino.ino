@@ -34,9 +34,10 @@ DHT dht(DHTPIN, DHTTYPE);
 #define echoPin 2 // Digital 2
 
 // LEDs
-int led1 = 7; // LED1(Mavi, Blue) 7. pine bağlı
-int led2 = 12; // LED2(Sarı, Yellow) 12. pine bağlı
-int led3 = 11;  // LED3(Kırmızı, Red) 11. pine bağlı
+const int led1 = 5; // LED1(Mavi, Blue) 7. pine bağlı
+const int led2 = 6; // LED2(Sarı, Yellow) 12. pine bağlı
+const int led3 = 7;  // LED3(Kırmızı, Red) 11. pine bağlı
+const int pump = 15; // Water pump to Digital 13
 
 // Soil humidity sensor
 int soilsensor = 0; // Soil humidity sensor integer, Arduino A0
@@ -63,6 +64,7 @@ void setup() {
   pinMode(led1, OUTPUT);
   pinMode(led2, OUTPUT);
   pinMode(led3, OUTPUT);
+  pinMode(pump, OUTPUT);
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
 }
@@ -137,9 +139,14 @@ void loop() {
     }
     else if (nem  >= 75 && nem  < 100)
     {
-     digitalWrite(led1,HIGH);
      Serial.println("Toprak nem seviyesi / Soil humidity level: LOW");
      Serial.print("Lutfen sulama yapiniz. / Please watering.");
+     digitalWrite(led1,HIGH);
+     /* NOT TESTED WATER PUMP
+     analogWrite(pump, 255); // Water pump is running maximum level
+     delay(2000);           //  Watering 2 seconds
+     analogWrite(pump, 0);  // Water pump stopped
+     */
      digitalWrite(led1,LOW);
     }
     Serial.println("-------------------------------------------------------------------");
@@ -248,7 +255,7 @@ String yollanacakkomut3 = "GET /update?key=R0XZLJNI69MSWQ9Z&field3=";   // Thing
                         }
                         }
 
-void mesafe_yolla(int distance){
+void mesafe_yolla(long distance){
                                Serial.println(String("AT+CIPSTART=\"TCP\",\"") + IP + "\",80");  //thingspeak sunucusuna bağlanmak için bu kodu kullanıyoruz.
                                                                                                  //AT+CIPSTART komutu ile sunucuya bağlanmak için sunucudan izin istiyoruz.
                                                                                                  //TCP burada yapacağımız bağlantı çeşidini gösteriyor. 80 ise bağlanacağımız portu gösteriyor
@@ -258,7 +265,7 @@ void mesafe_yolla(int distance){
                                   return;
                                 }
 String yollanacakkomut4 = "GET /update?key=R0XZLJNI69MSWQ9Z&field4=";   // Thingspeak API Integration
-                                                yollanacakkomut4 += (float(distance));                                      // Burada ise sıcaklığımızı float değişkenine atayarak yollanacakkomut değişkenine ekliyoruz.
+                                                yollanacakkomut4 += (long(distance));                                      // Burada ise sıcaklığımızı float değişkenine atayarak yollanacakkomut değişkenine ekliyoruz.
                                                 yollanacakkomut4 += "\r\n\r\n";                                             // ESP modülümüz ile seri iletişim kurarken yazdığımız komutların modüle iletilebilmesi için Enter komutu yani
                                                  delay(2000);                                                                                // /r/n komutu kullanmamız gerekiyor.
 
