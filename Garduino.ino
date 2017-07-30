@@ -2,7 +2,7 @@
  * Garduino | 0.4
  * Plant Monitoring & Management System on Arduino
  *
- * DHT temp & humidity detecting: Sensor(Digital 2), integers(h,t,hic), Wire a 10k Ohm resistor to VCC
+ * DHT temp & humidity detecting: Sensor(Digital 2), integers(h,t,hic), Wire a 10k Ohm resistor to VCC(5V)
  * IR Controlling (Optional,Not Include): Receiver(Digital 13), integers(RECV_PIN)
  * Water level (Distance) detecting: Sensor(Digital 3 & 2), VCC to Arduino 5v GND to Arduino GND
  * Soil humidity detecting: Sensor(A0), VCC to 5V
@@ -18,14 +18,13 @@
 // Libraries
 #include <DHT.h>    // DHT library
 #include <DHT_U.h>  // DHT 11 & 22 detecting library
-#include <Servo.h>  // Servo library
 // Wi-Fi network identification
 #define ssid "SSID"            // Your Wi-Fi SSID
-#define pass "Pass"            // Your Wi-Fi password
+#define pass "PASS"            // Your Wi-Fi password
 #define IP "184.106.153.149"   // thingspeak.com IP address
 
 // DHT Sensor
-#define DHTPIN 2  // DHT to Arduino Digital 2 / DHT sensörü 2. pine bağlı
+#define DHTPIN 22  // DHT to Arduino Digital 2 / DHT sensörü 2. pine bağlı
 #define DHTTYPE DHT11
 DHT dht(DHTPIN, DHTTYPE);
 
@@ -37,7 +36,7 @@ DHT dht(DHTPIN, DHTTYPE);
 const int led1 = 5; // LED1(Mavi, Blue) 7. pine bağlı
 const int led2 = 6; // LED2(Sarı, Yellow) 12. pine bağlı
 const int led3 = 7;  // LED3(Kırmızı, Red) 11. pine bağlı
-const int pump = 15; // Water pump to Digital 13
+// const int pump = 15; // Water pump to Digital 13
 
 // Soil humidity sensor
 int soilsensor = 0; // Soil humidity sensor integer, Arduino A0
@@ -60,15 +59,16 @@ void setup() {
     delay(2000);
     String baglantiKomutu=String("AT+CWJAP=\"")+ssid+"\",\""+pass+"\"";
    Serial.println(baglantiKomutu);
+   delay(1000);
    // LEDs & sensor
   pinMode(led1, OUTPUT);
   pinMode(led2, OUTPUT);
   pinMode(led3, OUTPUT);
-  pinMode(pump, OUTPUT);
+  // pinMode(pump, OUTPUT);
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
 }
-
+}
 void loop() {
  // Soil humidity detecting
   nem= analogRead(soilsensor);
@@ -105,8 +105,8 @@ void loop() {
   Serial.println(" cm");
 
   if (distance < 5){
-    Serial.println("Su seviyesi çok düşük / Water level is too low");
-    Serial.print("Su seviyesi çok düşük / Water level is too low");
+    Serial.println("Su seviyesi cok dusuk / Water level is too low");
+    Serial.print("Sulama yapilamayacak / Can not watering");
     digitalWrite(led1,HIGH);
     digitalWrite(led2,HIGH);
     digitalWrite(led3,HIGH);
@@ -177,7 +177,7 @@ void sicaklik_yolla(float t){
    Serial.println("AT+CIPSTART Error");
     return;
   }
-String yollanacakkomut1 = "GET /update?key=R0XZLJNI69MSWQ9Z&field1=";   // Thingspeak API Integration
+String yollanacakkomut1 = "GET /update?key=KF01W6SRR2WNB8A6&field1=";   // Thingspeak API Integration
         yollanacakkomut1 += (float(t));                                      // Burada ise sıcaklığımızı float değişkenine atayarak yollanacakkomut değişkenine ekliyoruz.
         yollanacakkomut1 += "\r\n\r\n";                                             // ESP modülümüz ile seri iletişim kurarken yazdığımız komutların modüle iletilebilmesi için Enter komutu yani
          delay(2000);                                                                                // /r/n komutu kullanmamız gerekiyor.
@@ -206,7 +206,7 @@ void nem_yolla(float h){
              Serial.println("AT+CIPSTART Error");
               return;
             }
-String yollanacakkomut2 = "GET /update?key=R0XZLJNI69MSWQ9Z&field2=";   // Thingspeak API Integration
+String yollanacakkomut2 = "GET /update?key=KF01W6SRR2WNB8A6&field2=";   // Thingspeak API Integration
                 yollanacakkomut2 += (float(h));                                      // Burada ise sıcaklığımızı float değişkenine atayarak yollanacakkomut değişkenine ekliyoruz.
                 yollanacakkomut2 += "\r\n\r\n";                                             // ESP modülümüz ile seri iletişim kurarken yazdığımız komutların modüle iletilebilmesi için Enter komutu yani
                  delay(2000);                                                                                // /r/n komutu kullanmamız gerekiyor.
@@ -235,7 +235,7 @@ void toprak_yolla(int nem){
                        Serial.println("AT+CIPSTART Error");
                         return;
                       }
-String yollanacakkomut3 = "GET /update?key=R0XZLJNI69MSWQ9Z&field3=";   // Thingspeak API Integration
+String yollanacakkomut3 = "GET /update?key=KF01W6SRR2WNB8A6&field3=";   // Thingspeak API Integration
                         yollanacakkomut3 += (float(nem));                                      // Burada ise sıcaklığımızı float değişkenine atayarak yollanacakkomut değişkenine ekliyoruz.
                         yollanacakkomut3 += "\r\n\r\n";                                             // ESP modülümüz ile seri iletişim kurarken yazdığımız komutların modüle iletilebilmesi için Enter komutu yani
                          delay(2000);                                                                                // /r/n komutu kullanmamız gerekiyor.
@@ -264,7 +264,7 @@ void mesafe_yolla(long distance){
                                  Serial.println("AT+CIPSTART Error");
                                   return;
                                 }
-String yollanacakkomut4 = "GET /update?key=R0XZLJNI69MSWQ9Z&field4=";   // Thingspeak API Integration
+String yollanacakkomut4 = "GET /update?key=KF01W6SRR2WNB8A6&field4=";   // Thingspeak API Integration
                                                 yollanacakkomut4 += (long(distance));                                      // Burada ise sıcaklığımızı float değişkenine atayarak yollanacakkomut değişkenine ekliyoruz.
                                                 yollanacakkomut4 += "\r\n\r\n";                                             // ESP modülümüz ile seri iletişim kurarken yazdığımız komutların modüle iletilebilmesi için Enter komutu yani
                                                  delay(2000);                                                                                // /r/n komutu kullanmamız gerekiyor.
