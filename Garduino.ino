@@ -42,7 +42,7 @@ const int led3 = 7;  // LED3(Kırmızı, Red) 11. pine bağlı
 int soilsensor = 0; // Soil humidity sensor integer, Arduino A0
 int nem; // Humidity integer
 
-const int INTERNAL;
+int INTERNAL;
 
 
 void setup() {
