@@ -24,7 +24,7 @@
 #define IP "184.106.153.149"   // thingspeak.com IP address
 
 // DHT Sensor
-#define DHTPIN 22  // DHT to Arduino Digital 2 / DHT sensörü 2. pine bağlı
+#define DHTPIN 22  // DHT to Arduino Digital 22 / DHT sensörü 22. pine bağlı [MEGA]
 #define DHTTYPE DHT11
 DHT dht(DHTPIN, DHTTYPE);
 
