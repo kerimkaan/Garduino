@@ -1,9 +1,9 @@
 language: c
 sudo: false
 before_install:
-  - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
+  - source <(curl -SLs https://raw.githubusercontent.com/kerimkaan/travis-ci-arduino/master/install.sh)
 install:
-  - arduino --install-library "Adafruit SleepyDog Library,Adafruit FONA Library"
+  - arduino --install-library "Arduino-IRremote"
 script:
   - build_main_platforms
 notifications:
