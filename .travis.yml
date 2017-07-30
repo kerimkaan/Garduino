@@ -4,6 +4,8 @@ before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/kerimkaan/travis-ci-arduino/master/install.sh)
 install:
   - arduino --install-library "IRremote"
+  - arduino --install-library "Adafruit_Sensor"
+  - arduino --install-library "DHT-sensor-library"
 script:
   - build_main_platforms
 notifications:
