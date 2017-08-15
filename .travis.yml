@@ -1,19 +1,21 @@
-language: c
-before_install:
-  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_1.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :1 -ac -screen 0 1280x1024x16"
-  - sleep 3
-  - export DISPLAY=:1.0
-  - wget http://downloads.arduino.cc/arduino-1.8.3-linux64.tar.xz
-  - tar xf arduino-1.8.3-linux64.tar.xz
-  - sudo mv arduino-1.8.3 /usr/local/share/arduino
-  - sudo ln -s /usr/local/share/arduino/arduino /usr/local/bin/arduino
-install:
-  - arduino --install-library "IRremote,Adafruit Unified Sensor,DHT sensor library"
-script:
-  - arduino --verify --board arduino:avr:uno /home/travis/build/kerimkaan/Garduino/Garduino.ino
-  - arduino --verify --board arduino:avr:mega /home/travis/build/kerimkaan/Garduino/Garduino.ino
 
-notifications:
-  email:
-    on_success: change
-    on_failure: change
+{
+  "language": "python",
+  "python": "2.7",
+  "sudo": false,
+  "cache": {
+    "directories": [
+      "~/.platformio"
+    ]
+  },
+  "env": "PLATFORMIO_CI_SRC=/ PLATFORMIO_BUILD_FLAGS=\"-DSEND_AIWA_RC_T501\"",
+  "install": [
+    "pip install -U platformio"
+  ],
+  "script": [
+    "platformio ci --lib=\".\" --board=uno --board=leonardo --board=pro16MHzatmega168 --board=btatmega328"
+  ],
+  "group": "stable",
+  "dist": "precise",
+  "os": "linux"
+}
