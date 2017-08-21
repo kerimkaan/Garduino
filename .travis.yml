@@ -12,7 +12,7 @@
   "install": [
     "pip install -U platformio"
     ## DHT Sensor library (PlatformIO Lib no 19: http://platformio.org/lib/show/19/DHT%20sensor%20library)
-    - platformio lib -g install 19
+    "platformio lib -g install 19"
 
   ],
   "script": [
