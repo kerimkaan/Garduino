@@ -31,24 +31,26 @@ if (irrecv.decode(&results))
     if (results.value == BUTON1)
     {
       Serial.println("1. Kademe Sulama Yapiliyor... / Step 1 Watering...");
-      motor.write(60);
+      /* motor.write(60);
       delay(1000);
       motor.write(0);
-
+      */
     }
     if (results.value == BUTON2)
     {
       Serial.println("2. Kademe Sulama Yapiliyor... / Step 2 Watering...");
-      motor.write(180);
+      /* motor.write(180);
       delay(1500);
       motor.write(0);
+      */
     }
     if (results.value == BUTON3)
     {
       Serial.println("3. Kademe Sulama Yapiliyor... / Step 3 Watering...");
-      motor.write(270);
+      /* motor.write(270);
       delay(2000);
       motor.write(0);
+      */
     }
     irrecv.resume();
   }
