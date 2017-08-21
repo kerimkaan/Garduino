@@ -11,6 +11,9 @@
   "env": "PLATFORMIO_CI_SRC=Garduino.ino PLATFORMIO_BUILD_FLAGS=\"-DSEND_AIWA_RC_T501\"",
   "install": [
     "pip install -U platformio"
+    ## DHT Sensor library (PlatformIO Lib no 19: http://platformio.org/lib/show/19/DHT%20sensor%20library)
+    - platformio lib -g install 19
+
   ],
   "script": [
     "platformio ci --lib=\".\" --board=uno --board=leonardo --board=pro16MHzatmega168 --board=btatmega328"
