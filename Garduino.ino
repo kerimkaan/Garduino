@@ -42,7 +42,7 @@ const int led3 = 7;  // LED3(Kırmızı, Red) 11. pine bağlı
 int soilsensor = 0; // Soil humidity sensor integer, Arduino A0
 int nem; // Humidity integer
 
-int INTERNAL; // for ESP8266
+
 
 
 void setup() {
@@ -53,7 +53,7 @@ void setup() {
  // Join the Wi-Fi network with ESP8266 Module
  Serial.println("AT"); //ESP modülümüz ile bağlantı kurulup kurulmadığını kontrol ediyoruz.
  delay(3000); //ESP ile iletişim için 3 saniye bekliyoruz.
- analogReference(INTERNAL);
+
  if(Serial.find("OK")){         //esp modülü ile bağlantıyı kurabilmişsek modül "AT" komutuna "OK" komutu ile geri dönüş yapıyor.
     Serial.println("AT+CWMODE=1"); //esp modülümüzün WiFi modunu STA şekline getiriyoruz. Bu mod ile modülümüz başka ağlara bağlanabilecek.
     delay(2000);
