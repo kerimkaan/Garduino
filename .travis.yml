@@ -10,6 +10,7 @@ cache:
 
 env:
     - PLATFORMIO_CI_SRC=Garduino.ino
+    - PLATFORMIO_CI_SRC=/IROptional/IROptional.ino
     # - ...
 
 install:
@@ -20,7 +21,7 @@ install:
     #
     # http://platformio.org/lib/show/416/TinyGPS
     # http://platformio.org/lib/show/417/SPI4Teensy3
-    - platformio lib -g install 19
+    - platformio lib -g install 19 4
 
 script:
     - platformio ci --board=uno  --board=leonardo --board=pro16MHzatmega168 --board=btatmega328 --lib="."
