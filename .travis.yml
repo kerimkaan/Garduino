@@ -8,7 +8,7 @@
       "~/.platformio"
     ]
   },
-  "env": "PLATFORMIO_CI_SRC=/ PLATFORMIO_BUILD_FLAGS=\"-DSEND_AIWA_RC_T501\"",
+  "env": "PLATFORMIO_CI_SRC=/Garduino.ino PLATFORMIO_BUILD_FLAGS=\"-DSEND_AIWA_RC_T501\"",
   "install": [
     "pip install -U platformio"
   ],
