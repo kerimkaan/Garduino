@@ -1,4 +1,4 @@
-# Garduino
+# Garduino [![Build Status](https://travis-ci.org/kerimkaan/Garduino.svg?branch=master)](https://travis-ci.org/kerimkaan/Garduino)
 Plant Monitoring &amp; Management System on Arduino
 
 ## Introduction
