@@ -10,7 +10,7 @@ cache:
 
 env:
     - PLATFORMIO_CI_SRC=Garduino.ino
-    - PLATFORMIO_CI_SRC=/IROptional/IROptional.ino
+    - PLATFORMIO_CI_SRC=IROptional/IROptional.ino
     # - ...
 
 install:
