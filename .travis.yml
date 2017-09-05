@@ -1,8 +1,6 @@
 language: python
 python:
     - "2.7"
-
-# Cache PlatformIO packages using Travis CI container-based infrastructure
 sudo: false
 cache:
     directories:
@@ -16,12 +14,12 @@ env:
 install:
     - pip install -U platformio
 
-    #
     # Libraries from PlatformIO Library Registry:
     #
-    # http://platformio.org/lib/show/416/TinyGPS
-    # http://platformio.org/lib/show/417/SPI4Teensy3
+    # http://platformio.org/lib/show/19/DHT%20sensor%20library
+    # http://platformio.org/lib/show/4/IRremote
+
     - platformio lib -g install 19 4
 
 script:
-    - platformio ci --board=uno  --board=leonardo --board=pro16MHzatmega168 --board=btatmega328 --lib="."
+    - platformio ci --board=uno  --board=leonardo --board=megaatmega2560 --board=megaatmega1280 --lib="."

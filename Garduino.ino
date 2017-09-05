@@ -9,10 +9,10 @@
  * ESP8266: TX,RX, VCC to 3.3V, normal using & Thingspeak API integration
  *
  *
- * Before use please read README.md file.
- * Kullanmadan önce lütfen BENİOKU.md dosyasını okuyunuz.
+ * Before use please read README.md and LICENSE file.
+ * Kullanmadan önce lütfen BENİOKU.md ve LICENSE dosyasını okuyunuz.
  *
- * Repository: github.com/kerimkaan/Garduino
+ * Copyright (c) 2017 Kerim Kaan Dönmez
  */
 
 // Libraries
@@ -36,7 +36,7 @@ DHT dht(DHTPIN, DHTTYPE);
 const int led1 = 5; // LED1(Mavi, Blue) 7. pine bağlı
 const int led2 = 6; // LED2(Sarı, Yellow) 12. pine bağlı
 const int led3 = 7;  // LED3(Kırmızı, Red) 11. pine bağlı
-// const int pump = 15; // Water pump to Digital 13
+// const int pump = 13; // Water pump to Digital 13
 
 // Soil humidity sensor
 int soilsensor = 0; // Soil humidity sensor integer, Arduino A0
@@ -236,7 +236,7 @@ void toprak_yolla(int nem){
                         return;
                       }
 String yollanacakkomut3 = "GET /update?key=KF01W6SRR2WNB8A6&field3=";   // Thingspeak API Integration
-                        yollanacakkomut3 += (float(nem));                                      // Burada ise sıcaklığımızı float değişkenine atayarak yollanacakkomut değişkenine ekliyoruz.
+                        yollanacakkomut3 += (int(nem));                                      // Burada ise sıcaklığımızı float değişkenine atayarak yollanacakkomut değişkenine ekliyoruz.
                         yollanacakkomut3 += "\r\n\r\n";                                             // ESP modülümüz ile seri iletişim kurarken yazdığımız komutların modüle iletilebilmesi için Enter komutu yani
                          delay(2000);                                                                                // /r/n komutu kullanmamız gerekiyor.
 
