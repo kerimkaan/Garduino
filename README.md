@@ -1,5 +1,5 @@
 # Garduino [![Build Status](https://travis-ci.org/kerimkaan/Garduino.svg?branch=master)](https://travis-ci.org/kerimkaan/Garduino)
-Plant Monitoring &amp; Management System on Arduino
+> Plant Monitoring &amp; Management System on Arduino
 
 ## Introduction
 
@@ -38,8 +38,18 @@ Under construction.
 
 …
 
+### Versions
+
+* Gardunio is under development. For get the latest release, see [Releases](https://github.com/kerimkaan/Garduino/releases/) page.
 
 
-*NOT READY FOR USE*
+------
 
-Version: 0.4
+### License, Issues and Contributing:
+
+* Garduino is under the MIT license. See the [LICENSE](https://github.com/kerimkaan/Garduino/blob/master/LICENSE) file for details. Bugs, suggestions or feature requests, [open an issue](https://github.com/kerimkaan/Garduino/issues) :octocat:
+
+For more information about contributing issues or pull requests, contact from **Github** or Twitter(**[@kerimkaandonmez](https://twitter.com/kerimkaandonmez)**)
+
+
+*UNDER DEVELOPMENT. NOT READY FOR USE*

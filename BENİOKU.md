@@ -1,5 +1,5 @@
 # Garduino [![Build Status](https://travis-ci.org/kerimkaan/Garduino.svg?branch=master)](https://travis-ci.org/kerimkaan/Garduino)
-Arduino tabanlı saksı izleme & yönetme sistemi
+> Arduino tabanlı saksı izleme & yönetme sistemi
 
 ## Giriş
 
@@ -38,6 +38,15 @@ Yapım aşamasında.
 
 …
 
+### Sürümler
+
+* Garduino geliştirilmeye devam edilmektedir. Stabil sürümü edinmek için lütfen [Releases](https://github.com/kerimkaan/Garduino/releases) sayfasından faydalanınız.
+
+------
+
+### Lisans, Sorunlar ve Katkıda Bulunmak:
+
+* Garduino, MIT lisansı ile kullanılabilir. Detaylar için lütfen [Lisans](https://github.com/kerimkaan/Garduino/blob/master/LICENSE). Hatalar ve öneriler için **Github** üzerinden veya Twitter(**[@kerimkaandonmez](https://twitter.com/kerimkaandonmez)**) üzerinden ulaşabilirsiniz.
 
 
 *KULLANIM İÇİN HAZIR DEĞİLDİR*
