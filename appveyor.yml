@@ -11,7 +11,7 @@ install:
   - cmd: SET PATH=%PATH%;C:\Python27\Scripts
   - cmd: pip install -U https://github.com/platformio/platformio/archive/develop.zip
   - cmd: platformio platform install https://github.com/platformio/platform-atmelavr.git
-  - cmd: platformio lib -g install 19 4
+  - cmd: platformio lib -g install 31 19 4
 
 test_script:
   - cmd: platformio ci --board=uno --board=megaatmega2560
