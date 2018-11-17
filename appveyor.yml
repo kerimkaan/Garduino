@@ -13,5 +13,5 @@ install:
   - cmd: platformio platform install https://github.com/platformio/platform-espressif32.git#feature/stage
 
 test_script:
-  - cmd: platformio ci -g install 19 4
-  - cmd: platformio ci -b uno -b megaatmega2560 -b node32s
+  - cmd: platformio ci --lib install 19 4
+  - cmd: platformio ci -board=uno -board=megaatmega2560 -board=node32s
