@@ -1,0 +1,17 @@
+build: off
+environment:
+
+  matrix:
+    - PLATFORMIO_CI_SRC: "Garduino.ino"
+    - PLATFORMIO_CI_SRC: "IROptional/IROptional.ino"
+
+
+install:
+  - cmd: git submodule update --init --recursive
+  - cmd: SET PATH=%PATH%;C:\Python27\Scripts
+  - cmd: pip install -U https://github.com/platformio/platformio/archive/develop.zip
+  - cmd: platformio platform install https://github.com/platformio/platform-espressif32.git#feature/stage
+
+test_script:
+  - cmd: platformio ci -g install 19 4
+  - cmd: platformio ci -b uno -b megaatmega2560 -b node32s
