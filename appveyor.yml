@@ -14,4 +14,4 @@ install:
   - cmd: platformio lib -g install 31 19 4
 
 test_script:
-  - cmd: platformio ci --board=uno --board=megaatmega2560
+  - cmd: platformio ci --board=uno  --board=leonardo --board=megaatmega2560 --board=megaatmega1280
