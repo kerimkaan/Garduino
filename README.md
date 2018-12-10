@@ -1,4 +1,4 @@
-# Garduino<sup>v0.6</sup>
+# Garduino<sup>v0.7</sup>
 [![Build Status](https://travis-ci.org/kerimkaan/Garduino.svg?branch=master)](https://travis-ci.org/kerimkaan/Garduino) [![Build status](https://ci.appveyor.com/api/projects/status/xe7xvrd5gprempey?svg=true)](https://ci.appveyor.com/project/kerimkaan/garduino)
 > Plant Monitoring &amp; Management System on Arduino
 

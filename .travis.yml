@@ -16,10 +16,11 @@ install:
 
     # Libraries from PlatformIO Library Registry:
     #
+    # https://platformio.org/lib/show/31/Adafruit%20Unified%20Sensor
     # http://platformio.org/lib/show/19/DHT%20sensor%20library
     # http://platformio.org/lib/show/4/IRremote
 
-    - platformio lib -g install 19 4
+    - platformio lib -g install 31 19 4
 
 script:
     - platformio ci --board=uno  --board=leonardo --board=megaatmega2560 --board=megaatmega1280 --lib="."

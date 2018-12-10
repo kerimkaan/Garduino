@@ -1,5 +1,5 @@
 /*
- * Garduino | 0.4
+ * Garduino | 0.7
  * Plant Monitoring & Management System on Arduino
  *
  * DHT temp & humidity detecting: Sensor(Digital 2), integers(h,t,hic), Wire a 10k Ohm resistor to VCC(5V)
