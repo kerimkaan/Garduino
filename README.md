@@ -1,5 +1,6 @@
 # Garduino<sup>v0.7</sup>
 [![Build Status](https://travis-ci.org/kerimkaan/Garduino.svg?branch=master)](https://travis-ci.org/kerimkaan/Garduino) [![Build status](https://ci.appveyor.com/api/projects/status/xe7xvrd5gprempey?svg=true)](https://ci.appveyor.com/project/kerimkaan/garduino)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fkerimkaan%2FGarduino.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fkerimkaan%2FGarduino?ref=badge_shield)
 > Plant Monitoring &amp; Management System on Arduino
 
 ## Introduction
@@ -56,3 +57,6 @@ For more information about contributing issues or pull requests, contact from **
 
 
 *UNDER DEVELOPMENT. NOT READY FOR USE*
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fkerimkaan%2FGarduino.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fkerimkaan%2FGarduino?ref=badge_large)
